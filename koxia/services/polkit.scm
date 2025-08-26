@@ -10,7 +10,9 @@
 (define polkit-1password
   (file-union
    "polkit-1password"
-   `(("share/polkit-1/actions/com.1password.Password.policy")))
+   `(("share/polkit-1/actions/com.1password.Password.policy"))))
 
-  (define polkit-1password-service
-    (simple-service 'polkit-1password polkit-service-type (list polkit-1password)))
+(define polkit-1password-service
+  (simple-service 'polkit-1password
+                  polkit-service-type
+                  (list polkit-1password)))
