@@ -38,3 +38,10 @@
           (service-extension kernel-module-loader-service-type
                              (const '("uinput")))))
    (description "Kanata keyboard remapping service.")))
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; tab-width: 2
+;; End:
+
+;;; kanata.scm ends here.

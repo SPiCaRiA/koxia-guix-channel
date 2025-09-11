@@ -92,3 +92,10 @@
     "Free variable writing fonts from iA.  @uref{https://ia.net}.")
    ;; iA-Fonts uses the licensing file from its upstream project, IBM Plex.
    (license license:silofl1.1)))
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; tab-width: 2
+;; End:
+
+;;; fonts.scm ends here.

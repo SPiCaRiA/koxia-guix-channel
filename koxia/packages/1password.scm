@@ -235,3 +235,10 @@ Add this to your @code{operating-system}'s @code{privileged-programs} field:
 
 And a Polkit service with the action file at @example{share/polkit-1/actions/com.1password.1Password.policy}.")
    (license (licensenon:nonfree "https://1password.com/legal/terms-of-service"))))
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; tab-width: 2
+;; End:
+
+;;; 1password.scm ends here.

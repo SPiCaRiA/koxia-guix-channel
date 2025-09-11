@@ -53,3 +53,10 @@
    (description "The new browser that blocks ads and trackers and protects your privacy.")
    (home-page "https://brave.com/")
    (license license:mpl2.0)))
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; tab-width: 2
+;; End:
+
+;;; brave.scm ends here.

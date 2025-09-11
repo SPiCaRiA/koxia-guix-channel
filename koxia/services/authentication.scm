@@ -72,3 +72,10 @@
                              1password-polkit-policies)))
    (description "Set user groups, setuid programs, and polkit policies for
 1Password.")))
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; tab-width: 2
+;; End:
+
+;;; authentication.scm ends here.

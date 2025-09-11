@@ -26,3 +26,10 @@
 and other GitHub concepts to the terminal next to where you are already working
 with @code{git} and your code.")
    (license license:expat)))
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; tab-width: 2
+;; End:
+
+;;; gh.scm ends here.
