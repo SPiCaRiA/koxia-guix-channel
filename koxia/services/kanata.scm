@@ -7,7 +7,7 @@
                                               udev-rule))
   #:use-module ((gnu services configuration)
                 #:select (define-configuration/no-serialization))
-  #:use-module ((gnu system) #:select (account-service-type))
+  #:use-module ((gnu system shadow) #:select (account-service-type))
   #:use-module ((gnu system accounts) #:select (user-group))
   #:use-module ((guix gexp) #:select (file-append))
   #:use-module ((guix records) #:select (match-record-lambda))
