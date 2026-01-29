@@ -1,8 +1,14 @@
+;;; kanata.scm --- The Koxia Guix channel  -*- mode: scheme; -*-
+;;;
+;;; SPDX-License-Identifier: GPL-3.0-or-later
+;;;
+;;; This file is generated from koxia-kanata.org.  Do not modify manually.
+
 (define-module (koxia services kanata)
   #:use-module ((gnu packages linux) #:select (kmod))
   #:use-module ((gnu packages rust-apps) #:select (kanata))
   #:use-module ((gnu services) #:select (service-type
-                                         service-extension))
+                                          service-extension))
   #:use-module ((gnu services base) #:select (udev-service-type
                                               udev-rule))
   #:use-module ((gnu services configuration)
@@ -19,11 +25,6 @@
 
 ;;; Code:
 
-(define kanata-groups
-  (list
-   (user-group (name "uinput") (system? #t))
-   (user-group (name "input") (system? #t))))
-
 (define kanata-udev-rules
   (udev-rule
    "99-kanata.rules"
@@ -31,16 +32,18 @@
 
 (define kanata-service-type
   (service-type
-   (name 'kanata)
-   (extensions
-    (list (service-extension account-service-type
-                             (const kanata-groups))
-          (service-extension udev-service-type
-                             (const (list kanata-udev-rules)))
-          (service-extension kernel-module-loader-service-type
-                             (const '("uinput")))))
-   (default-value #f)
-   (description "Kanata keyboard remapping service.")))
+    (name 'kanata)
+    (extensions
+     (list (service-extension account-service-type
+                              (const
+                               (list (user-group (name "uinput")
+                                                 (system? #t)))))
+           (service-extension udev-service-type
+                              (const (list kanata-udev-rules)))
+           (service-extension kernel-module-loader-service-type
+                              (const '("uinput")))))
+    (default-value #f)
+    (description "Kanata keyboard remapping service.")))
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil
