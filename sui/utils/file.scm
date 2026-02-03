@@ -10,7 +10,7 @@
   #:use-module (guix gexp)
 
   #:export (computed-substitution-with-inputs
-            file-content))
+               file-content))
 
 ;;; Commentary:
 ;;;
