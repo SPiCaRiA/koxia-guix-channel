@@ -5,7 +5,7 @@
 ;;; This file is generated from sui-dotfiles.org.
 ;;; Do not modify manually.
 
-(define-module (sui home dotfiles)
+(define-module (sui services dotfiles)
   #:use-module (gnu home services)
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
