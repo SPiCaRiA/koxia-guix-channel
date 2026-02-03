@@ -1,28 +1,27 @@
-;;; kanata.scm --- The Koxia Guix channel  -*- mode: scheme; -*-
+;;; kanata.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from koxia-kanata.org.  Do not modify manually.
+;;; This file is generated from sui-kanata.org.
+;;; Do not modify manually.
 
-(define-module (koxia services kanata)
+(define-module (sui services kanata)
   #:use-module ((gnu packages linux) #:select (kmod))
   #:use-module ((gnu packages rust-apps) #:select (kanata))
-  #:use-module ((gnu services) #:select (service-type
-                                          service-extension))
+  #:use-module (gnu services)
   #:use-module ((gnu services base) #:select (udev-service-type
                                               udev-rule))
-  #:use-module ((gnu services configuration)
-                #:select (define-configuration/no-serialization))
+  #:use-module (gnu services configuration)
   #:use-module ((gnu services linux)
                 #:select (kernel-module-loader-service-type))
-  #:use-module ((gnu system accounts) #:select (user-group))
-  #:use-module ((gnu system shadow) #:select (account-service-type))
-  #:use-module ((guix gexp) #:select (file-append))
-  #:use-module ((guix records) #:select (match-record-lambda))
+  #:use-module (gnu system accounts)
+  #:use-module (gnu system shadow)
+  #:use-module (guix gexp)
+  #:use-module (guix records)
   #:export (kanata-service-type))
 
 ;;; Commentary:
-
+;;;
 ;;; Code:
 
 (define kanata-udev-rules

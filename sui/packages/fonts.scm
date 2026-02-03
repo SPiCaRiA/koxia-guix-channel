@@ -1,14 +1,21 @@
-;;; fonts.scm --- The Koxia Guix channel  -*- mode: scheme; -*-
+;;; fonts.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from koxia-fonts.org.  Do not modify manually.
+;;; This file is generated from sui-fonts.org.
+;;; Do not modify manually.
 
-(define-module (koxia packages fonts)
+(define-module (sui packages fonts)
   #:use-module (guix download)
   #:use-module (guix packages)
   #:use-module (guix build-system font)
   #:use-module ((guix licenses) #:prefix license:))
+
+;;; Commentary:
+;;;
+;;; Fonts.
+;;;
+;;; Code:
 
 (define-public font-meslo-nerd
   (package
@@ -28,7 +35,7 @@
     (description "Meslo font with nerd icons.")
     (license license:asl2.0)))
 
-(define (font-ia-writer-variable-uri path)
+(define (font-ia-writer-variable-url path)
   (string-append
    "https://github.com/iaolo/iA-Fonts/raw/refs/heads/master/iA%20Writer%20"
    path))
@@ -40,24 +47,24 @@
     (source #f)
     (build-system font-build-system)
     (arguments
-     `(#:phases
-       (modify-phases %standard-phases
-         (replace 'unpack
-           (lambda* (#:key inputs #:allow-other-keys)
-             (mkdir-p "source")
-             (chdir "source")
-
-             (for-each
-              (lambda (input)
-                (let* ((input-name (car input))
-                       (input-path (cdr input)))
-                  (copy-file input-path (basename input-path))))
-              (alist-delete "source" inputs)))))))
+     (list
+      #:phases
+      #~(modify-phases %standard-phases
+          (replace 'unpack
+            (lambda* (#:key inputs #:allow-other-keys)
+              (mkdir-p "source")
+              (chdir "source")
+              (for-each
+               (lambda (input)
+                 (let* ((input-name (car input))
+                        (input-path (cdr input)))
+                   (copy-file input-path (basename input-path))))
+               (alist-delete "source" inputs)))))))
     (inputs
      `(("iAWriterMonoV"
         ,(origin
            (method url-fetch)
-           (uri (font-ia-writer-variable-uri
+           (uri (font-ia-writer-variable-url
                  "Mono/Variable/iAWriterMonoV.ttf"))
            (sha256
             (base32
@@ -65,7 +72,7 @@
        ("iAWriterMonoV-Italic"
         ,(origin
            (method url-fetch)
-           (uri (font-ia-writer-variable-uri
+           (uri (font-ia-writer-variable-url
                  "Mono/Variable/iAWriterMonoV-Italic.ttf"))
            (sha256
             (base32
@@ -73,7 +80,7 @@
        ("iAWriterDuoV"
         ,(origin
            (method url-fetch)
-           (uri (font-ia-writer-variable-uri
+           (uri (font-ia-writer-variable-url
                  "Duo/Variable/iAWriterDuoV.ttf"))
            (sha256
             (base32
@@ -81,7 +88,7 @@
        ("iAWriterDuoV-Italic"
         ,(origin
            (method url-fetch)
-           (uri (font-ia-writer-variable-uri
+           (uri (font-ia-writer-variable-url
                  "Duo/Variable/iAWriterDuoV-Italic.ttf"))
            (sha256
             (base32
@@ -89,7 +96,7 @@
        ("iAWriterQuattroV"
         ,(origin
            (method url-fetch)
-           (uri (font-ia-writer-variable-uri
+           (uri (font-ia-writer-variable-url
                  "Quattro/Variable/iAWriterQuattroV.ttf"))
            (sha256
             (base32
@@ -97,15 +104,15 @@
        ("iAWriterQuattroV-Italic"
         ,(origin
            (method url-fetch)
-           (uri (font-ia-writer-variable-uri
+           (uri (font-ia-writer-variable-url
                  "Quattro/Variable/iAWriterQuattroV-Italic.ttf"))
            (sha256
             (base32
              "0fiqx5dpfs51ql2q9i2ssg2pavn811vnqyqdx15zvnzhnh0qkhik"))))))
     (home-page "https://github.com/iaolo/iA-Fonts")
-    (synopsis "iA Writer Variable fonts.")
+    (synopsis "iA Writer Variable fonts")
     (description
-     "Free variable writing fonts from iA.  @uref{https://ia.net}.")
+     "Free variable writing fonts from iA.  @url{https://ia.net}.")
     ;; iA-Fonts uses the license from its upstream project, IBM Plex.
     (license license:silofl1.1)))
 

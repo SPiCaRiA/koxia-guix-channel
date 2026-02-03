@@ -1,20 +1,20 @@
-;;; brave.scm --- The Koxia Guix channel  -*- mode: scheme; -*-
+;;; brave.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from koxia-brave.org.  Do not modify manually.
+;;; This file is generated from sui-brave.org.
+;;; Do not modify manually.
 
-(define-module (koxia packages brave)
+(define-module (sui packages brave)
   #:use-module (guix download)
   #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module ((guix licenses) :prefix license:)
-  #:use-module (nonguix build-system chromium-binary)
-  #:export brave-browser)
+  #:use-module (nonguix build-system chromium-binary))
 
 ;;; Commentary:
 ;;;
-;;; 1Password.
+;;; Brave.
 ;;;
 ;;; Code:
 

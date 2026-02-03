@@ -1,10 +1,11 @@
-;;; authentication.scm --- The Koxia Guix channel  -*- mode: scheme; -*-
+;;; authentication.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from koxia-1password.org.  Do not modify manually.
+;;; This file is generated from sui-password-utils.org.
+;;; Do not modify manually.
 
-(define-module (koxia services authentication)
+(define-module (sui services authentication)
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
   #:use-module (gnu services dbus)
@@ -13,8 +14,8 @@
   #:use-module (gnu system shadow)
   #:use-module (guix gexp)
   #:use-module (guix records)
-  #:use-module ((koxia packages 1password) #:select (1password
-                                                     1password-cli))
+  #:use-module ((sui packages 1password) #:select (1password
+                                                   1password-cli))
   #:export (1password-configuration
             1password-service-type))
 

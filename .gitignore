@@ -1,3 +1,5 @@
+# -*- eval: (if (fboundp 'gitignore-mode) (gitignore-mode) (conf-mode)); -*-
+
 # MacOS
 .DS_Store
 

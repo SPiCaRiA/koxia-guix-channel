@@ -1,10 +1,11 @@
-;;; 1password.scm --- The Koxia Guix channel  -*- mode: scheme; -*-
+;;; password-utils.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from koxia-1password.org.  Do not modify manually.
+;;; This file is generated from sui-password-utils.org.
+;;; Do not modify manually.
 
-(define-module (koxia packages 1password)
+(define-module (sui packages password-utils)
   #:use-module (guix build-system copy)
   #:use-module (nonguix build-system binary)
   #:use-module (guix packages)
@@ -26,16 +27,15 @@
   #:use-module (gnu packages polkit)
   #:use-module (gnu packages mate)
   #:use-module (gnu packages commencement)
-  #:use-module (gnu packages nss)
-  #:export (1password-cli 1password))
+  #:use-module (gnu packages nss))
 
 ;;; Commentary:
 ;;;
-;;; 1Password.
+;;; Password utilities.
 ;;;
 ;;; Code:
 
-(define 1password-cli
+(define-public 1password-cli
   (package
     (name "1password-cli")
     (version "2.30.3")
@@ -49,12 +49,36 @@
     (build-system copy-build-system)
     (native-inputs (list unzip))
     (arguments
-     `(#:install-plan '(("op" "bin/op"))))
+     (list
+      #:install-plan #~'(("op" "bin/op"))
+      #:phases
+      #~(modify-phases %standard-phases
+          (add-after 'install 'install-completions
+            (lambda _
+              (let ([op (string-append #$output "/bin/op")]
+                    [bash-comp (string-append
+                                #$output "/share/bash-completion/completions")]
+                    [zsh-comp (string-append
+                               #$output "/share/zsh/site-functions")]
+                    [fish-comp (string-append
+                                #$output "/share/fish/vendor_completions.d")])
+                (mkdir-p bash-comp)
+                (mkdir-p zsh-comp)
+                (mkdir-p fish-comp)
+                (with-output-to-file (string-append bash-comp "/op")
+                  (lambda () (invoke op "completion" "bash")))
+                (with-output-to-file (string-append zsh-comp "/_op")
+                  (lambda () (invoke op "completion" "zsh")))
+                (with-output-to-file (string-append fish-comp "/op.fish")
+                  (lambda () (invoke op "completion" "fish")))))))))
     (home-page "https://1password.com/downloads/command-line")
     (synopsis "1Password CLI")
-    (description "1Password CLI brings 1Password to your terminal.  It can integrate with your 1Password app and sign in with Touch ID, Windows Hello, or another system authentication option.
+    (description "1Password CLI brings 1Password to your terminal.  It can
+integrate with your 1Password app and sign in with Touch ID, Windows Hello, or
+another system authentication option.
 
-Add this to your @code{operating-system}'s @code{privileged-programs} field to enable 1Password desktop app integration:
+Add this to your @code{operating-system}'s @code{privileged-programs} field to
+enable 1Password desktop app integration:
 
 @example
 (privileged-programs
@@ -66,7 +90,8 @@ Add this to your @code{operating-system}'s @code{privileged-programs} field to e
    (group \"onepassword-cli\"))
   %default-privileged-programs))
 @end example")
-    (license (licensenon:nonfree "https://1password.com/legal/terms-of-service"))))
+    (license
+     (licensenon:nonfree "https://1password.com/legal/terms-of-service"))))
 
 (define prebuilt-libffmpeg
   (package
@@ -82,20 +107,21 @@ Add this to your @code{operating-system}'s @code{privileged-programs} field to e
         (base32 "1nqdpnpbvp5fzyqlj6dwfgf2hprmhkd499pjn4npl75rs8lmj9cg"))))
     (build-system binary-build-system)
     (arguments
-     `(#:phases
-       (modify-phases %standard-phases
-         (add-before 'patchelf 'patchelf-writable
-           (lambda _
-             (make-file-writable "libffmpeg.so"))))
-       #:patchelf-plan `(("libffmpeg.so" ("glibc" "gcc-toolchain")))
-       #:install-plan `(("libffmpeg.so", "lib/"))))
-    (inputs (list glibc
-                  gcc-toolchain))
+     (list
+      ;; #:phases
+      ;; #~(modify-phases %standard-phases
+      ;;     (add-before 'patchelf 'patchelf-writable
+      ;;       (lambda _
+      ;;         (make-file-writable "libffmpeg.so"))))
+      #:patchelf-plan #~'(("libffmpeg.so" ("glibc" "gcc-toolchain")))
+      #:install-plan #~'(("libffmpeg.so" "lib/"))))
+    (inputs (list glibc gcc-toolchain))
     (native-inputs (list unzip))
     (supported-systems '("x86_64-linux"))
     (home-page "https://github.com/nwjs-ffmpeg-prebuilt/nwjs-ffmpeg-prebuilt")
     (synopsis "FFmpeg prebuilt for NW.js")
-    (description "FFmpeg prebuilt binaries with proprietary codecs and build instructions for Window, Linux and macOS.")
+    (description "FFmpeg prebuilt binaries with proprietary codecs and build
+instructions for Window, Linux and macOS.")
     (license license:gpl2)))
 
 (define-public 1password
@@ -121,22 +147,23 @@ Add this to your @code{operating-system}'s @code{privileged-programs} field to e
           "chrome-sandbox"
           "op-ssh-sign")
       #:install-plan
-      `(("./" "share/1Password/")
-        ("resources/1password.desktop" "share/applications/")
-        ("resources/icons/" "share/icons/")
-        ("com.1password.1Password.policy" "share/polkit-1/actions/")
-        ("resources/custom_allowed_browsers" "share/doc/1password/examples/"))
+      #~'(("./" "share/1Password/")
+          ("resources/1password.desktop" "share/applications/")
+          ("resources/icons/" "share/icons/")
+          ("com.1password.1Password.policy" "share/polkit-1/actions/")
+          ("resources/custom_allowed_browsers" "share/doc/1password/examples/"))
       #:phases
       #~(modify-phases %standard-phases
-          (add-before 'patchelf 'patchelf-writable
-            (lambda _
-              (for-each make-file-writable
-                        '("1password"
-                          "1Password-BrowserSupport"
-                          "1Password-Crash-Handler"
-                          "1Password-LastPass-Exporter"
-                          "chrome-sandbox"
-                          "op-ssh-sign"))))
+          ;; (add-before 'patchelf 'patchelf-writable
+          ;;   (lambda _
+          ;;     (for-each make-file-writable
+          ;;               '("1password"
+          ;;                 "1Password-BrowserSupport"
+          ;;                 "1Password-Crash-Handler"
+          ;;                 "1Password-LastPass-Exporter"
+          ;;                 "chrome-sandbox"
+          ;;                 "op-ssh-sign"))))
+
           ;; All the following phases are based on the official after-install.sh
           ;; script in the tarball.
           (add-after 'unpack 'prepare-policy-file
@@ -150,22 +177,19 @@ Add this to your @code{operating-system}'s @code{privileged-programs} field to e
             (lambda _
               (chmod "chrome-sandbox" #o4755)))
           (add-after 'install 'fix-desktop-file
-            (lambda* (#:key outputs #:allow-other-keys)
-              (let ((out (assoc-ref outputs "out")))
-                (substitute*
-                    (string-append out "/share/applications/1password.desktop")
-                  (("Exec=/opt/1Password/1password")
-                   (string-append "Exec=" out "/bin/1password"))))))
+            (lambda _
+              (substitute*
+                  (string-append
+                   #$output "/share/applications/1password.desktop")
+                (("Exec=/opt/1Password/1password")
+                 (string-append "Exec=" #$output "/bin/1password")))))
           (add-after 'install 'create-symlinks
-            (lambda* (#:key outputs #:allow-other-keys)
-              (let* ((out (assoc-ref outputs "out"))
-                     (src-dir (string-append out "/share/1Password"))
-                     (target-dir (string-append out "/bin")))
+            (lambda _
+              (let ([src-dir (string-append #$output "/share/1Password")]
+                    [target-dir (string-append #$output "/bin")])
                 (mkdir-p target-dir)
-                ;; Create symlink for the main executable.
-                (symlink
-                 (string-append src-dir "/1password")
-                 (string-append target-dir "/1password"))))))))
+                (symlink (string-append src-dir "/1password")
+                         (string-append target-dir "/1password"))))))))
     (inputs (list prebuilt-libffmpeg))
     (propagated-inputs (list polkit mate-polkit))
     (supported-systems '("x86_64-linux"))
@@ -189,11 +213,11 @@ Add this to your @code{operating-system}'s @code{privileged-programs} field:
 And a Polkit service with the action file at
 @file{share/polkit-1/actions/com.1password.1Password.policy}.")
     (license
-     (license:nonfree:nonfree "https://1password.com/legal/terms-of-service"))))
+     (license:nonfree "https://1password.com/legal/terms-of-service"))))
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil
 ;; tab-width: 2
 ;; End:
 
-;;; 1password.scm ends here.
+;;; password-utils.scm ends here.
