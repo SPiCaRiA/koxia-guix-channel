@@ -9,15 +9,17 @@
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
   #:use-module (gnu services dbus)
+  #:use-module (gnu services shepherd)
+  #:use-module (gnu home services shepherd)
   #:use-module (gnu system accounts)
   #:use-module (gnu system privilege)
   #:use-module (gnu system shadow)
   #:use-module (guix gexp)
   #:use-module (guix records)
-  #:use-module ((sui packages 1password) #:select (1password
-                                                   1password-cli))
+  #:use-module (sui packages password-utils)
   #:export (1password-configuration
-            1password-service-type))
+            1password-service-type
+            home-1password-service-type))
 
 ;;; Commentary:
 ;;;
@@ -61,6 +63,11 @@
       (1password)
     (list 1password)))
 
+(define 1password-packages
+  (match-record-lambda <1password-configuration>
+      (1password 1password-cli)
+    (list 1password 1password-cli)))
+
 (define 1password-service-type
   (service-type
     (name '1password)
@@ -70,9 +77,27 @@
            (service-extension privileged-program-service-type
                               1password-privileged-programs)
            (service-extension polkit-service-type
-                              1password-polkit-policies)))
+                              1password-polkit-policies)
+           (service-extension profile-service-type
+                              1password-packages)))
     (description "Set user groups, setuid programs, and polkit policies for
 1Password.")))
+
+(define home-1password-service-type
+  (service-type
+    (name 'home-1password)
+    (extensions
+     (list (service-extension home-shepherd-service-type
+                              (const
+                               (list (shepherd-service
+                                       (documentation "Start 1Password.")
+                                       (provision '(1password))
+                                       (start #~(make-forkexec-constructor
+                                                 (list #$(file-append 1password
+                                                                      "/bin/1password"))))
+                                       (stop #~(make-kill-destructor))))))))
+    (default-value #f)
+    (description "Home service for running 1Password.")))
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil

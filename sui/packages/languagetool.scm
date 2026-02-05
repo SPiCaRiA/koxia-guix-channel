@@ -11,8 +11,8 @@
   #:use-module (guix gexp)
   #:use-module (guix build-system copy)
   #:use-module ((guix licenses) #:prefix license:)
-  #:use-module ((gnu packages compression) #:select (unzip))
-  #:use-module ((gnu packages java) #:select (openjdk)))
+  #:use-module (gnu packages compression)
+  #:use-module (gnu packages java))
 
 ;;; Commentary:
 ;;;

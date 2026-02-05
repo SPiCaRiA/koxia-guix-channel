@@ -6,19 +6,21 @@
 ;;; Do not modify manually.
 
 (define-module (sui services kanata)
-  #:use-module ((gnu packages linux) #:select (kmod))
-  #:use-module ((gnu packages rust-apps) #:select (kanata))
+  #:use-module (gnu packages rust-apps)
   #:use-module (gnu services)
-  #:use-module ((gnu services base) #:select (udev-service-type
-                                              udev-rule))
+  #:use-module (gnu services base)
   #:use-module (gnu services configuration)
-  #:use-module ((gnu services linux)
-                #:select (kernel-module-loader-service-type))
+  #:use-module (gnu services linux)
+  #:use-module (gnu services shepherd)
+  #:use-module (gnu home services shepherd)
   #:use-module (gnu system accounts)
   #:use-module (gnu system shadow)
   #:use-module (guix gexp)
   #:use-module (guix records)
-  #:export (kanata-service-type))
+
+  #:export (kanata-service-type
+            home-kanata-configuration
+            home-kanata-service-type))
 
 ;;; Commentary:
 ;;;
@@ -43,6 +45,37 @@
                               (const '("uinput")))))
     (default-value #f)
     (description "Kanata keyboard remapping service.")))
+
+(define-maybe file-like)
+
+(define-configuration/no-serialization home-kanata-configuration
+  (config
+   maybe-file-like
+   "Kanata configuration file."))
+
+(define %home-kanata-shepherd
+  (match-record-lambda <home-kanata-configuration>
+      (config)
+    (list (shepherd-service
+            (documentation "Start kanata keyboard remapper.")
+            (provision '(kanata))
+            (start #~(make-forkexec-constructor
+                      (list #$(file-append kanata "/bin/kanata")
+                            "-c"
+                            #$(if (maybe-value-set? config)
+                                  config
+                                  (string-append (getenv "XDG_CONFIG_HOME")
+                                                 "/kanata/kanata.kbd")))))
+            (stop #~(make-kill-destructor))))))
+
+(define home-kanata-service-type
+  (service-type
+    (name 'home-kanata)
+    (extensions
+     (list (service-extension home-shepherd-service-type
+                              %home-kanata-shepherd)))
+    (default-value (home-kanata-configuration))
+    (description "Home service for running Kanata keyboard remapper.")))
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil
