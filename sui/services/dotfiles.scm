@@ -57,13 +57,22 @@
     (lambda (file stat)
       (not (regexp-exec rx (basename file))))))
 
+(define (sanitize-store-name path)
+  "Strip leading dot from basename of PATH for use as a store name."
+  (let ((base (basename path)))
+    (if (string-prefix? "." base)
+        (string-drop base 1)
+        base)))
+
 (define (dotfile->file-entry source-directory select?)
   (match-lambda
     [(dest src #t)
      (list dest (local-file (in-vicinity source-directory src)
+                            (sanitize-store-name src)
                             #:recursive? #t #:select? select?))]
     [(or (dest src #f) (dest src))
-     (list dest (local-file (in-vicinity source-directory src)))]))
+     (list dest (local-file (in-vicinity source-directory src)
+                            (sanitize-store-name src)))]))
 
 (define (make-entries getter)
   (lambda (config)
