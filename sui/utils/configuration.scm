@@ -20,13 +20,6 @@
 
 (define current-config (make-parameter #f))
 
-(define-syntax get-config
-  (syntax-rules ()
-    [(_)
-     (or (current-config)
-         (and (defined? 'this-operating-system) this-operating-system)
-         (error "($) must be used within operating-system or with-config"))]))
-
 (define-syntax $
   (lambda (stx)
     "Access fields of the current operating-system configuration.
@@ -40,14 +33,17 @@ Special cases:
 General case:
   ($ field) accesses the field"
     (syntax-case stx (user-names)
-      [($ user-names)
-       #'(map user-account-name (operating-system-users (get-config)))]
-      [($ field)
+      [(k user-names)
+       (with-syntax ([tos (datum->syntax #'k 'this-operating-system)])
+         #'(map user-account-name
+                (operating-system-users (or (current-config) tos))))]
+      [(k field)
        (let* ([field-name (symbol->string (syntax->datum #'field))]
               [accessor-sym (string->symbol
                              (string-append "operating-system-" field-name))])
-         (with-syntax ([accessor (datum->syntax #'field accessor-sym)])
-           #'((@ (gnu system) accessor) (get-config))))])))
+         (with-syntax ([accessor (datum->syntax #'field accessor-sym)]
+                       [tos (datum->syntax #'k 'this-operating-system)])
+           #'((@ (gnu system) accessor) (or (current-config) tos))))])))
 
 (define-syntax with-config
   (syntax-rules ()

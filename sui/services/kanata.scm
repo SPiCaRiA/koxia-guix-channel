@@ -64,8 +64,10 @@
                             "-c"
                             #$(if (maybe-value-set? config)
                                   config
-                                  (string-append (getenv "XDG_CONFIG_HOME")
-                                                 "/kanata/kanata.kbd")))))
+                                  #~(string-append (or (getenv "XDG_CONFIG_HOME")
+                                                       (string-append (getenv "HOME")
+                                                                      "/.config"))
+                                                   "/kanata/kanata.kbd")))))
             (stop #~(make-kill-destructor))))))
 
 (define home-kanata-service-type
