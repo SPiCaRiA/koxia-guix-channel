@@ -7,6 +7,7 @@
 
 (define-module (sui packages fonts)
   #:use-module (guix download)
+  #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix build-system font)
   #:use-module ((guix licenses) #:prefix license:))
