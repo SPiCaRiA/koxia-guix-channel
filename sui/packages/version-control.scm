@@ -7,6 +7,7 @@
 
 (define-module (sui packages version-control)
   #:use-module (guix download)
+  #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (nonguix build-system binary))
