@@ -15,6 +15,7 @@
   #:use-module (gnu system accounts)
   #:use-module (gnu system pam)
   #:use-module (gnu system privilege)
+  #:use-module (gnu system shadow)
   #:use-module (guix gexp)
   #:use-module (guix records)
   #:use-module (srfi srfi-26)
