@@ -1,11 +1,11 @@
-;;; dotfiles.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
+;;; dotfiles.scm --- The Koxia Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from sui-dotfiles.org.
+;;; This file is generated from koxia-dotfiles.org.
 ;;; Do not modify manually.
 
-(define-module (sui services dotfiles)
+(define-module (koxia services dotfiles)
   #:use-module (gnu home services)
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
@@ -15,8 +15,8 @@
   #:use-module (ice-9 match)
   #:use-module (ice-9 regex)
   #:use-module (srfi srfi-1)
-  #:export (home-sui-dotfiles-service-type
-            home-sui-dotfiles-configuration))
+  #:export (home-koxia-dotfiles-service-type
+            home-koxia-dotfiles-configuration))
 
 ;;; Commentary:
 ;;;
@@ -36,7 +36,7 @@
 (define list-of-dotfile-entries?
   (list-of dotfile-entry?))
 
-(define-configuration/no-serialization home-sui-dotfiles-configuration
+(define-configuration/no-serialization home-koxia-dotfiles-configuration
   (source-directory
    (string)
    "Base directory for resolving relative source paths.")
@@ -112,26 +112,26 @@
 (define (make-entries getter)
   (lambda (config)
     (let* ([source-directory
-            (home-sui-dotfiles-configuration-source-directory config)]
-           [excluded (home-sui-dotfiles-configuration-excluded config)]
+            (home-koxia-dotfiles-configuration-source-directory config)]
+           [excluded (home-koxia-dotfiles-configuration-excluded config)]
            [select? (and (not (null? excluded))
                          (make-exclusion-predicate excluded))])
       (append-map (dotfile->file-entry source-directory select?)
                   (getter config)))))
 
-(define home-sui-dotfiles-service-type
+(define home-koxia-dotfiles-service-type
   (service-type
-    (name 'home-sui-dotfiles)
+    (name 'home-koxia-dotfiles)
     (extensions
      (list (service-extension
             home-files-service-type
-            (make-entries home-sui-dotfiles-configuration-home-files))
+            (make-entries home-koxia-dotfiles-configuration-home-files))
            (service-extension
             home-xdg-configuration-files-service-type
-            (make-entries home-sui-dotfiles-configuration-xdg-config-files))
+            (make-entries home-koxia-dotfiles-configuration-xdg-config-files))
            (service-extension
             home-xdg-data-files-service-type
-            (make-entries home-sui-dotfiles-configuration-xdg-data-files))))
+            (make-entries home-koxia-dotfiles-configuration-xdg-data-files))))
     (description "Manage dotfiles across home, XDG config, and XDG data
 directories.")))
 

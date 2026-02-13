@@ -1,11 +1,11 @@
-;;; languagetool.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
+;;; languagetool.scm --- The Koxia Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from sui-languagetool.org.
+;;; This file is generated from koxia-languagetool.org.
 ;;; Do not modify manually.
 
-(define-module (sui packages languagetool)
+(define-module (koxia packages languagetool)
   #:use-module (guix packages)
   #:use-module (guix download)
   #:use-module (guix gexp)

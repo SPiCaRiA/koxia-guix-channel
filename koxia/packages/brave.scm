@@ -1,11 +1,11 @@
-;;; brave.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
+;;; brave.scm --- The Koxia Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from sui-brave.org.
+;;; This file is generated from koxia-brave.org.
 ;;; Do not modify manually.
 
-(define-module (sui packages brave)
+(define-module (koxia packages brave)
   #:use-module (guix download)
   #:use-module (guix gexp)
   #:use-module (guix packages)

@@ -1,11 +1,11 @@
-;;; fonts.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
+;;; fonts.scm --- The Koxia Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from sui-fonts.org.
+;;; This file is generated from koxia-fonts.org.
 ;;; Do not modify manually.
 
-(define-module (sui packages fonts)
+(define-module (koxia packages fonts)
   #:use-module (guix download)
   #:use-module (guix gexp)
   #:use-module (guix packages)

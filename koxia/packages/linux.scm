@@ -1,11 +1,11 @@
-;;; linux.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
+;;; linux.scm --- The Koxia Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from sui-linux.org.
+;;; This file is generated from koxia-linux.org.
 ;;; Do not modify manually.
 
-(define-module (sui packages linux)
+(define-module (koxia packages linux)
   #:use-module (guix packages)
   #:use-module (guix download)
   #:use-module (guix git-download)

@@ -1,11 +1,11 @@
-;;; desktop.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
+;;; desktop.scm --- The Koxia Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from sui-desktop.org.
+;;; This file is generated from koxia-desktop.org.
 ;;; Do not modify manually.
 
-(define-module (sui services desktop)
+(define-module (koxia services desktop)
   #:use-module (gnu home services shepherd)
   #:use-module (gnu packages polkit)
   #:use-module (gnu services)

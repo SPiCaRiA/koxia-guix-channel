@@ -1,17 +1,17 @@
-;;; rust-apps.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
+;;; rust-apps.scm --- The Koxia Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from sui-rust-apps.org.
+;;; This file is generated from koxia-rust-apps.org.
 ;;; Do not modify manually.
 
-(define-module (sui packages rust-apps)
+(define-module (koxia packages rust-apps)
   #:use-module (guix packages)
   #:use-module (guix gexp)
   #:use-module (guix git-download)
   #:use-module (guix build-system cargo)
   #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (sui packages rust-crates))
+  #:use-module (koxia packages rust-crates))
 
 ;;; Commentary:
 ;;;
@@ -49,7 +49,7 @@
                 (install-file "completion/tex-fmt.fish" fish)
                 (install-file "completion/_tex-fmt" zsh)))))))
     (inputs (cargo-inputs 'tex-fmt
-                          #:module '(sui packages rust-crates)))
+                          #:module '(koxia packages rust-crates)))
     (home-page "https://github.com/WGUNDERWOOD/tex-fmt")
     (synopsis "LaTeX formatter written in Rust")
     (description "An extremely fast LaTeX formatter written in Rust.  Provides

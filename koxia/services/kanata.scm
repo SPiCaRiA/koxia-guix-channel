@@ -1,11 +1,11 @@
-;;; kanata.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
+;;; kanata.scm --- The Koxia Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from sui-kanata.org.
+;;; This file is generated from koxia-kanata.org.
 ;;; Do not modify manually.
 
-(define-module (sui services kanata)
+(define-module (koxia services kanata)
   #:use-module (gnu packages rust-apps)
   #:use-module (gnu services)
   #:use-module (gnu services base)

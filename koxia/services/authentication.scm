@@ -1,11 +1,11 @@
-;;; authentication.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
+;;; authentication.scm --- The Koxia Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from sui-authentication.org.
+;;; This file is generated from koxia-authentication.org.
 ;;; Do not modify manually.
 
-(define-module (sui services authentication)
+(define-module (koxia services authentication)
   #:use-module (gnu services)
   #:use-module (gnu services configuration)
   #:use-module (gnu services dbus)
@@ -19,7 +19,7 @@
   #:use-module (guix gexp)
   #:use-module (guix records)
   #:use-module (srfi srfi-26)
-  #:use-module (sui packages password-utils)
+  #:use-module (koxia packages password-utils)
   #:export (1password-configuration
             1password-service-type
             home-1password-service-type

@@ -2,7 +2,7 @@
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from sui-prelude.org.
+;;; This file is generated from koxia-prelude.org.
 ;;; Do not modify manually.
 
 (channel

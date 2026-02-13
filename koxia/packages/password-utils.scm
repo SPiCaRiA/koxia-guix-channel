@@ -1,11 +1,11 @@
-;;; password-utils.scm --- The Sui Guix Channel  -*- mode: scheme; -*-
+;;; password-utils.scm --- The Koxia Guix Channel  -*- mode: scheme; -*-
 ;;;
 ;;; SPDX-License-Identifier: GPL-3.0-or-later
 ;;;
-;;; This file is generated from sui-password-utils.org.
+;;; This file is generated from koxia-password-utils.org.
 ;;; Do not modify manually.
 
-(define-module (sui packages password-utils)
+(define-module (koxia packages password-utils)
   #:use-module (guix build-system copy)
   #:use-module (nonguix build-system binary)
   #:use-module (nonguix build-system chromium-binary)
@@ -205,7 +205,7 @@ Add this to your @code{operating-system}'s @code{privileged-programs} field:
   %default-privileged-programs))
 @end example
 
-Use @code{1password-service-type} from @code{(sui services authentication)} to
+Use @code{1password-service-type} from @code{(koxia services authentication)} to
 set up groups, setgid wrappers, and the Polkit policy.")
     (license
      (licensenon:nonfree "https://1password.com/legal/terms-of-service"))))
